@@ -16,12 +16,11 @@ public class TestPoint {
         Point point_B = new Point(point_B_x, point_B_y);
 
         double distance = Point.distance(point_A, point_B);
-        System.out.println(String.format("%.2f", distance));
 
         assert String.format("%.2f", distance).equals("12,73");
-        
-        Assert.assertEquals(String.format(
-                "%.2f", distance),
+
+        Assert.assertEquals(
+                String.format("%.2f", distance),
                 "12,73",
                 "Дистанция не верна фактическому результату"
         );
