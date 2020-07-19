@@ -8,9 +8,9 @@ public class Point {
         this.point_y = point_y;
     }
 
-    public static double distance(Point a, Point b){
-        double range = Math.sqrt(((a.point_x - b.point_x)*(a.point_x - b.point_x)) +
-                ((a.point_y - b.point_y)*(a.point_y - b.point_y)));
-        return range;
+    
+    public double distance(Point b){
+        return Math.sqrt(((this.point_x - b.point_x)*(this.point_x - b.point_x)) +
+                ((this.point_y - b.point_y)*(this.point_y - b.point_y)));
     }
 }
