@@ -4,10 +4,9 @@ import addressbook.model.ContactData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class ContatctHelper extends HelperBase {
-    private WebDriver wd;
+public class ContactHelper extends HelperBase {
 
-    protected ContatctHelper(WebDriver wd) {
+    protected ContactHelper(WebDriver wd) {
         super(wd);
     }
 
@@ -30,6 +29,18 @@ public class ContatctHelper extends HelperBase {
 
     public void returnHomePage(){
         click(By.linkText("home page"));
+    }
+
+    public void selectContact() {
+        click(By.name("selected[]"));
+    }
+
+    public void acceptAlertByDelete(){
+        acceptAlert();
+    }
+
+    public void deleteContactButton(){
+        click(By.xpath("//input[@value='Delete']"));
     }
 
 }

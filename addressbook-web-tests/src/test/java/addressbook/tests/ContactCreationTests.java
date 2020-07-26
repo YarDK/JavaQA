@@ -15,9 +15,9 @@ public class ContactCreationTests extends TestBase {
                 "88002353535"
         );
 
-        app.getContatctHelper().initContactCreation();
-        app.getContatctHelper().fillContactForm(contact);
-        app.getContatctHelper().submitContactCreation();
-        app.getContatctHelper().returnHomePage();
+        app.getContactHelper().initContactCreation();
+        app.getContactHelper().fillContactForm(contact);
+        app.getContactHelper().submitContactCreation();
+        app.getContactHelper().returnHomePage();
     }
 }

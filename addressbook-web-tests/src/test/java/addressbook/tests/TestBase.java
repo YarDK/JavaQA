@@ -21,4 +21,12 @@ public class TestBase {
         app.stop();
     }
 
+    public void waiter(int second){
+        try{
+            Thread.sleep(second * 1000);
+        } catch (Exception e){
+            System.out.println(e);
+        }
+    }
+
 }
