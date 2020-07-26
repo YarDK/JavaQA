@@ -1,0 +1,23 @@
+package addressbook.tests;
+
+import addressbook.model.ContactData;
+import org.testng.annotations.Test;
+
+public class ContactCreationTests extends TestBase {
+
+    @Test
+    public void testContactCreation(){
+        ContactData contact = new ContactData(
+                "Contact_name_test_1",
+                "Contact_last_name_1",
+                "Contact_middle_name_1",
+                "Contact_nick_name_1",
+                "88002353535"
+        );
+
+        app.getContatctHelper().initContactCreation();
+        app.getContatctHelper().fillContactForm(contact);
+        app.getContatctHelper().submitContactCreation();
+        app.getContatctHelper().returnHomePage();
+    }
+}
