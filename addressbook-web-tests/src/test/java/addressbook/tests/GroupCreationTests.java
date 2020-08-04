@@ -10,8 +10,8 @@ public class GroupCreationTests extends TestBase{
 
     GroupData groupData = new GroupData(
             "New_group_name_2",
-            "Group_header_logo",
-            "Group_footer_comment"
+            null,
+            null
     );
 
     app.getNavigationHelper().gotoGroupPage();

@@ -6,6 +6,25 @@ public class ContactData {
     private final String middle_name;
     private final String nick_name;
     private final String telephone_home;
+    private final String group;
+
+
+    public ContactData(
+            String first_name,
+            String last_name,
+            String middle_name,
+            String nick_name,
+            String telephone_home,
+            String group
+    ) {
+
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.middle_name = middle_name;
+        this.nick_name = nick_name;
+        this.telephone_home = telephone_home;
+        this.group = group;
+    }
 
     public String getFirst_name() {
         return first_name;
@@ -27,22 +46,8 @@ public class ContactData {
         return telephone_home;
     }
 
-
-
-    public ContactData(
-            String first_name,
-            String last_name,
-            String middle_name,
-            String nick_name,
-            String telephone_home
-    ) {
-
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.middle_name = middle_name;
-        this.nick_name = nick_name;
-        this.telephone_home = telephone_home;
+    public String getGroup() {
+        return group;
     }
-
 
 }

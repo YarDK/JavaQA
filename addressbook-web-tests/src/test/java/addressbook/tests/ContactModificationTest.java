@@ -12,11 +12,12 @@ public class ContactModificationTest extends TestBase {
                 "Contact_last_name_update_1",
                 "Contact_middle_name_update_1",
                 "Contact_nick_name_update_1",
-                "84950001122"
+                "84950001122",
+                null
         );
 
         app.getContactHelper().clickEditIcon();
-        app.getContactHelper().fillContactForm(contact);
+        app.getContactHelper().fillContactForm(contact, false);
         app.getContactHelper().submitContactUpdata();
         app.getContactHelper().returnHomePage();
 
