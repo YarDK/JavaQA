@@ -9,7 +9,7 @@ public class GroupCreationTests extends TestBase{
   public void testGroupCreation() {
 
     GroupData groupData = new GroupData(
-            "New_group_name_2",
+            "New_group_name_3",
             null,
             null
     );
