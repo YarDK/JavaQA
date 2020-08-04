@@ -7,11 +7,11 @@ import org.testng.annotations.BeforeMethod;
 
 public class TestBase {
 
-    protected final ApplicationManager app = new ApplicationManager();
+    protected final ApplicationManager app = new ApplicationManager("Firefox");
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
-        app.init("Firefox");
+        app.init();
 
 
     }

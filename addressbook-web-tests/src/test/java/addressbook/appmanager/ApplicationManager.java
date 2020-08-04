@@ -10,13 +10,21 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationManager {
 
     private WebDriver wd;
+    private String browser;
 
     private NavigationHelper navigationHelper;
     private GroupHelper groupHelper;
     private SessionHelper sessionHelper;
     private ContactHelper contactHelper;
 
-    public void init(String browser) {
+    public ApplicationManager(String browser) {
+        this.browser = browser;
+
+    }
+
+    public void init() {
+
+        //BrowserType не поддерживает chrome и firefox по умолчанию в имеющейся бибилиотеке
 
         if(browser.equals("Chrome")){
             System.setProperty("webdriver.chrome.driver","/Applications/Google Chrome.app/Contents/MacOS/chromedriver");
