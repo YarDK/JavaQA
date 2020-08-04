@@ -16,6 +16,18 @@ public class ContactModificationTest extends TestBase {
                 null
         );
 
+        if(!app.getContactHelper().isThereAContact()){
+
+            app.getContactHelper().createContact(new ContactData(
+                    "Delete_contact_first_name",
+                    "Delete_contact_last_name",
+                    "Delete_contact_middle_name",
+                    "Delete_contact_nick_name",
+                    "192873129783",
+                    "[none]"));
+
+        }
+
         app.getContactHelper().clickEditIcon();
         app.getContactHelper().fillContactForm(contact, false);
         app.getContactHelper().submitContactUpdata();
