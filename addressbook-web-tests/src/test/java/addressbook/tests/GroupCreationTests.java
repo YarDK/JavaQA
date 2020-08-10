@@ -1,24 +1,30 @@
 package addressbook.tests;
 
 import addressbook.model.GroupData;
+import org.testng.Assert;
 import org.testng.annotations.*;
 
-public class GroupCreationTests extends TestBase{
+import java.util.List;
 
-  @Test
-  public void testGroupCreation() {
+public class GroupCreationTests extends TestBase {
 
-    GroupData groupData = new GroupData(
-            "New_group_name_3",
-            null,
-            null
-    );
+    @Test
+    public void testGroupCreation() {
 
-    app.getNavigationHelper().gotoGroupPage();
-    app.getGroupHelper().initGroupCreation();
-    app.getGroupHelper().fillGroupForm(groupData);
-    app.getGroupHelper().submitGroupCreation();
-    app.getGroupHelper().returnToGroupPage();
-  }
+        GroupData groupData = new GroupData(
+                "New_group_name_3",
+                null,
+                null
+        );
+
+
+        app.getNavigationHelper().gotoGroupPage();
+        List<GroupData>  before = app.getGroupHelper().getGroupList();
+
+        app.getGroupHelper().createGroup(groupData);
+        List<GroupData>  after = app.getGroupHelper().getGroupList();
+
+        Assert.assertEquals(after.size(), before.size() + 1);
+    }
 
 }
