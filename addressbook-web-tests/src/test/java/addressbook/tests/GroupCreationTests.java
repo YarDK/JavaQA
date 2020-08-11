@@ -5,7 +5,6 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class GroupCreationTests extends TestBase {
@@ -48,8 +47,6 @@ public class GroupCreationTests extends TestBase {
         before.sort(byId);
         after.sort(byId);
         Assert.assertEquals(before,after);
-
-        //Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
     }
 
 }

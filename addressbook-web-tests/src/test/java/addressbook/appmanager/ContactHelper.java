@@ -4,8 +4,12 @@ import addressbook.model.ContactData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
@@ -40,6 +44,10 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("home page"));
     }
 
+    public void returnHome(){
+        click(By.linkText("home"));
+    }
+
     public void selectContact() {
         click(By.name("selected[]"));
     }
@@ -67,7 +75,28 @@ public class ContactHelper extends HelperBase {
         returnHomePage();
     }
 
+    public void refrashPage(){
+        wd.navigate().refresh();
+    }
+
     public boolean isThereAContact() {
         return isElementPresent(By.name("selected[]"));
+    }
+
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<>();
+        List<WebElement> elements = wd.findElements(By.name("entry"));
+
+        if(isThereAContact()) {
+            for (WebElement e : elements) {
+                String last_name = e.findElements(By.tagName("td")).get(1).getText();
+                String first_name = e.findElements(By.tagName("td")).get(2).getText();
+                int id = Integer.parseInt(e.findElement(By.tagName("input")).getAttribute("value"));
+                ContactData contact = new ContactData(first_name, last_name, id);
+                contacts.add(contact);
+            }
+        }
+
+        return contacts;
     }
 }
