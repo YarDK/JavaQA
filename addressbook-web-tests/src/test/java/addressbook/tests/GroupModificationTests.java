@@ -5,16 +5,15 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
 import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 public class GroupModificationTests extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions(){
         app.goTo().groupPage();
-        if (app.group().list().size() == 0) {
+        if (app.group().all().size() == 0) {
             app.group().create(new GroupData().withName("Modify_group"));
         }
     }
@@ -26,27 +25,22 @@ public class GroupModificationTests extends TestBase {
 
 
 
-        List<GroupData> before = app.group().list();
-        int last_index = before.size() - 1;
+        Set<GroupData> before = app.group().all();
+        GroupData modified_group = before.iterator().next();
 
         GroupData group = new GroupData()
                 .withName("New_group_modify_name")
                 .withFooter("Modify_footer")
                 .withHeader("Modify_header")
-                .withId(before.get(before.size()-1).getId());
+                .withId(modified_group.getId());
 
-        app.group().modify(last_index, group);
+        app.group().modify(group);
 
-        List<GroupData> after = app.group().list();
+        Set<GroupData> after = app.group().all();
         Assert.assertEquals(after.size(), before.size());
 
-        before.remove(last_index);
+        before.remove(modified_group);
         before.add(group);
-
-        Comparator<? super GroupData> byId_v1 = (g1,g2) -> Integer.compare(g1.getId(), g2.getId());
-        Comparator<? super GroupData> byId_v2 = Comparator.comparingInt(GroupData::getId);
-        before.sort(byId_v2);
-        after.sort(byId_v1);
         Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
     }
 
