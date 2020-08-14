@@ -80,6 +80,7 @@ public class ContactData {
 
         ContactData that = (ContactData) o;
 
+        if (id != that.id) return false;
         if (first_name != null ? !first_name.equals(that.first_name) : that.first_name != null) return false;
         return last_name != null ? last_name.equals(that.last_name) : that.last_name == null;
     }
@@ -88,6 +89,7 @@ public class ContactData {
     public int hashCode() {
         int result = first_name != null ? first_name.hashCode() : 0;
         result = 31 * result + (last_name != null ? last_name.hashCode() : 0);
+        result = 31 * result + id;
         return result;
     }
 

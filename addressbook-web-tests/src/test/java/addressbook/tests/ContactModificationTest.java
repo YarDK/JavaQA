@@ -1,21 +1,20 @@
 package addressbook.tests;
 
 import addressbook.model.ContactData;
-import org.testng.Assert;
+import addressbook.model.Contacts;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 
 public class ContactModificationTest extends TestBase {
 
-    @Test
-    public void testContactModificationTest(){
-
-        if(!app.getContactHelper().isThereAContact())
-        {
-            app.getContactHelper().createContact(new ContactData()
+    @BeforeMethod
+    public void ensurePreconditions() {
+        if (app.contact().all().size() == 0) {
+            app.contact().create(new ContactData()
                     .withFirst_name("New_contact_first_name")
                     .withLast_name("New_contact_last_name")
                     .withMiddle_name("New_contact_middle_name")
@@ -23,8 +22,12 @@ public class ContactModificationTest extends TestBase {
                     .withTelephone_home("192873129783")
                     .withGroup("[none]"));
         }
+    }
 
-        List<ContactData> before = app.getContactHelper().getContactList();
+
+    @Test
+    public void testContactModificationTest(){
+        Contacts before = app.contact().all();
         ContactData modified_contact = before.iterator().next();
 
         ContactData contact = new ContactData()
@@ -32,23 +35,11 @@ public class ContactModificationTest extends TestBase {
                 .withLast_name("Modify_contact_last_name")
                 .withId(modified_contact.getId());
 
-        app.getContactHelper().modifyContact(contact);
-        List<ContactData> after = app.getContactHelper().getContactList();
+        app.contact().modify(contact);
+        Contacts after = app.contact().all();
 
-        // Редактирование происходит для рандомного контакта, т.к. условиями не заданно, какой именно контакт долженё
-        // изменяться
-
-        Assert.assertEquals(after.size(), before.size());
-
-        before.remove(before.size() - 1);
-        before.add(contact);
-        Comparator<? super ContactData> byId = Comparator.comparingInt(ContactData::getId);
-        before.sort(byId);
-        after.sort(byId);
-        Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
-        
-
+        assertThat(after.size(), equalTo(before.size()));
+        assertThat(after, equalTo(before.withModify(modified_contact, contact)));
 
     }
-
 }

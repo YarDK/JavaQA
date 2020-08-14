@@ -1,14 +1,14 @@
 package addressbook.appmanager;
 
 import addressbook.model.ContactData;
+import addressbook.model.Contacts;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-
-import java.util.ArrayList;
 import java.util.List;
+
 
 public class ContactHelper extends HelperBase {
 
@@ -49,9 +49,6 @@ public class ContactHelper extends HelperBase {
         click(By.linkText("home"));
     }
 
-    public void selectContact() {
-        click(By.name("selected[]"));
-    }
 
     public void selectContactById(int id) {
         click(By.cssSelector("input[id='" + id + "']"));
@@ -73,7 +70,7 @@ public class ContactHelper extends HelperBase {
         click(By.name("update"));
     }
 
-    public void createContact(ContactData contactData) {
+    public void create(ContactData contactData) {
         returnHome();
         initContactCreation();
         fillContactForm(contactData, true);
@@ -81,14 +78,14 @@ public class ContactHelper extends HelperBase {
         returnHomePage();
     }
 
-    public void deletedContact(ContactData contact) {
+    public void deleted(ContactData contact) {
         selectContactById(contact.getId());
         deleteContactButton();
         acceptAlertByDelete();
         returnHome();
     }
 
-    public void modifyContact(ContactData contact) {
+    public void modify(ContactData contact) {
         clickEditIconById(contact.getId());
         fillContactForm(contact, false);
         submitContactUpdata();
@@ -103,8 +100,8 @@ public class ContactHelper extends HelperBase {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public List<ContactData> getContactList() {
-        List<ContactData> contacts = new ArrayList<>();
+    public Contacts all() {
+        Contacts contacts = new Contacts();
         List<WebElement> elements = wd.findElements(By.name("entry"));
 
         if(isThereAContact()) {
@@ -116,7 +113,6 @@ public class ContactHelper extends HelperBase {
                 contacts.add(contact);
             }
         }
-
         return contacts;
     }
 }

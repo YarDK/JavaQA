@@ -1,19 +1,21 @@
 package addressbook.tests;
 
 import addressbook.model.ContactData;
-import org.testng.Assert;
+import addressbook.model.Contacts;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 
 public class ContactDeleteTest extends TestBase {
 
-    @Test
-    public void testContactDeleteTest(){
-
-        if(!app.getContactHelper().isThereAContact())
+    @BeforeMethod
+    public void ensurePreconditions() {
+        if(app.contact().all().size() == 0)
         {
-            app.getContactHelper().createContact(new ContactData()
+            app.contact().create(new ContactData()
                     .withFirst_name("Delete_contact_first_name")
                     .withLast_name("Delete_contact_last_name")
                     .withMiddle_name("Delete_contact_middle_name")
@@ -21,16 +23,18 @@ public class ContactDeleteTest extends TestBase {
                     .withTelephone_home("192873129783")
                     .withGroup("[none]"));
         }
-
-        List<ContactData> before = app.getContactHelper().getContactList();
-        ContactData deleted_contact = before.iterator().next();
-        app.getContactHelper().deletedContact(deleted_contact);
-        waiter(1);
-        List<ContactData> after = app.getContactHelper().getContactList();
-
-        Assert.assertEquals(after.size(), before.size() - 1);
-
     }
 
+    @Test
+    public void testContactDeleteTest(){
+        Contacts before = app.contact().all();
+        ContactData deleted_contact = before.iterator().next();
+        app.contact().deleted(deleted_contact);
+        waiter(1);
+        Contacts after = app.contact().all();
 
+        assertThat(after.size(), equalTo(before.size() - 1));
+        assertThat(after, equalTo(before.without(deleted_contact)));
+
+    }
 }
