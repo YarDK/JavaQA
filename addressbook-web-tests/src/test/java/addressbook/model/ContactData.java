@@ -1,47 +1,14 @@
 package addressbook.model;
 
 public class ContactData {
-    private final String first_name;
-    private final String last_name;
-    private final String middle_name;
-    private final String nick_name;
-    private final String telephone_home;
-    private final String group;
-    private int id;
+    private String first_name;
+    private String last_name;
+    private String middle_name;
+    private String nick_name;
+    private String telephone_home;
+    private String group;
+    private int id = Integer.MAX_VALUE;
 
-
-    public ContactData(
-            String first_name,
-            String last_name,
-            String middle_name,
-            String nick_name,
-            String telephone_home,
-            String group
-    ) {
-
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.middle_name = middle_name;
-        this.nick_name = nick_name;
-        this.telephone_home = telephone_home;
-        this.group = group;
-        this.id = Integer.MAX_VALUE;
-    }
-
-    public ContactData(
-            String first_name,
-            String last_name,
-            int id
-    ) {
-
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.middle_name = "[none]";
-        this.nick_name = "[none]";
-        this.telephone_home = "[none]";
-        this.group = "[none]";
-        this.id = id;
-    }
 
     public String getFirst_name() {
         return first_name;
@@ -69,6 +36,41 @@ public class ContactData {
 
     public int getId() {
         return id;
+    }
+
+    public ContactData withFirst_name(String first_name) {
+        this.first_name = first_name;
+        return this;
+    }
+
+    public ContactData withLast_name(String last_name) {
+        this.last_name = last_name;
+        return this;
+    }
+
+    public ContactData withMiddle_name(String middle_name) {
+        this.middle_name = middle_name;
+        return this;
+    }
+
+    public ContactData withNick_name(String nick_name) {
+        this.nick_name = nick_name;
+        return this;
+    }
+
+    public ContactData withTelephone_home(String telephone_home) {
+        this.telephone_home = telephone_home;
+        return this;
+    }
+
+    public ContactData withGroup(String group) {
+        this.group = group;
+        return this;
+    }
+
+    public ContactData withId(int id) {
+        this.id = id;
+        return this;
     }
 
     @Override

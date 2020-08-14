@@ -1,6 +1,8 @@
 package addressbook.appmanager;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HelperBase {
     protected WebDriver wd;
@@ -34,5 +36,11 @@ public class HelperBase {
         } catch (NoSuchElementException e){
             return false;
         }
+    }
+
+    protected WebElement waitForElementPresent(By locator, String error_massage, int timeoutInSeconds){
+        WebDriverWait wait = new WebDriverWait(wd, timeoutInSeconds);
+        wait.withMessage(error_massage + "\n");
+        return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 }

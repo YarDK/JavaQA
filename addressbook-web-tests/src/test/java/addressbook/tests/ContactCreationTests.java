@@ -9,22 +9,19 @@ import java.util.List;
 
 public class ContactCreationTests extends TestBase {
 
-    @Test(enabled = false)
+    @Test
     public void testContactCreation(){
-        ContactData contact = new ContactData(
-                "Contact_name_test_3",
-                "Contact_last_name_3",
-                "Contact_middle_name_1",
-                "Contact_nick_name_1",
-                "88002353535",
-                "New_group_name_2"
-        );
+
+        ContactData contact = new ContactData()
+                .withFirst_name("Contact_name_test_3")
+                .withLast_name("Contact_last_name_3")
+                .withMiddle_name("Contact_middle_name_1")
+                .withNick_name("Contact_nick_name_1")
+                .withTelephone_home("88002353535")
+                .withGroup("New_group_name_2");
 
         List<ContactData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().initContactCreation();
-        app.getContactHelper().fillContactForm(contact, true);
-        app.getContactHelper().submitContactCreation();
-        app.getContactHelper().returnHomePage();
+        app.getContactHelper().createContact(contact);
         List<ContactData> after = app.getContactHelper().getContactList();
 
         Assert.assertEquals(after.size(), before.size() + 1);
@@ -39,4 +36,6 @@ public class ContactCreationTests extends TestBase {
 
 
     }
+
+
 }

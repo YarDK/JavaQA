@@ -17,7 +17,9 @@ public class ContactHelper extends HelperBase {
     }
 
     public void initContactCreation(){
-        click(By.linkText("add new"));
+        By link = By.linkText("add new");
+        waitForElementPresent(link, "Href 'add new' not present or found", 5);
+        click(link);
     }
 
     public void fillContactForm(ContactData contactData, boolean creation){
@@ -51,6 +53,10 @@ public class ContactHelper extends HelperBase {
         click(By.name("selected[]"));
     }
 
+    public void selectContactById(int id) {
+        click(By.cssSelector("input[id='" + id + "']"));
+    }
+
     public void acceptAlertByDelete(){
         acceptAlert();
     }
@@ -59,8 +65,8 @@ public class ContactHelper extends HelperBase {
         click(By.xpath("//input[@value='Delete']"));
     }
 
-    public void clickEditIcon(){
-        click(By.xpath("//img[@alt='Edit']"));
+    public void clickEditIconById(int id){
+        click(By.cssSelector("a[href='edit.php?id=" + id + "']"));
     }
 
     public void submitContactUpdata(){
@@ -68,9 +74,24 @@ public class ContactHelper extends HelperBase {
     }
 
     public void createContact(ContactData contactData) {
+        returnHome();
         initContactCreation();
         fillContactForm(contactData, true);
         submitContactCreation();
+        returnHomePage();
+    }
+
+    public void deletedContact(ContactData contact) {
+        selectContactById(contact.getId());
+        deleteContactButton();
+        acceptAlertByDelete();
+        returnHome();
+    }
+
+    public void modifyContact(ContactData contact) {
+        clickEditIconById(contact.getId());
+        fillContactForm(contact, false);
+        submitContactUpdata();
         returnHomePage();
     }
 
@@ -91,7 +112,7 @@ public class ContactHelper extends HelperBase {
                 String last_name = e.findElements(By.tagName("td")).get(1).getText();
                 String first_name = e.findElements(By.tagName("td")).get(2).getText();
                 int id = Integer.parseInt(e.findElement(By.tagName("input")).getAttribute("value"));
-                ContactData contact = new ContactData(first_name, last_name, id);
+                ContactData contact = new ContactData().withFirst_name(first_name).withLast_name(last_name).withId(id);
                 contacts.add(contact);
             }
         }

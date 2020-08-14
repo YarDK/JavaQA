@@ -22,7 +22,7 @@ public class GroupModificationTests extends TestBase {
     }
 
 
-    @Test
+    @Test(enabled = false)
     public void testGroupModificationTests() {
 
 
