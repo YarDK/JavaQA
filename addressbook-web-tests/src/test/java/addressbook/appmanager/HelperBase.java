@@ -43,4 +43,12 @@ public class HelperBase {
         wait.withMessage(error_massage + "\n");
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
+
+    protected void waiter(int millis){
+        try{
+            Thread.sleep(millis);
+        } catch (Exception e){
+            System.out.println(e);
+        }
+    }
 }
