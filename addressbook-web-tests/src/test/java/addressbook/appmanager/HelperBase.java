@@ -1,8 +1,13 @@
 package addressbook.appmanager;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.io.File;
 
 public class HelperBase {
     protected WebDriver wd;
@@ -16,16 +21,23 @@ public class HelperBase {
     }
 
     protected void type(By locator, String text) {
-        if(text != null) {
+        if (text != null) {
             String existing_text = wd.findElement(locator).getAttribute("value");
-            if(! text.equals(existing_text)) {
+            if (!text.equals(existing_text)) {
                 wd.findElement(locator).clear();
                 wd.findElement(locator).sendKeys(text);
             }
         }
     }
 
-    protected void acceptAlert(){
+    protected void attach(By locator, File file) {
+        if (file != null) {
+            wd.findElement(locator).sendKeys(file.getAbsolutePath());
+        }
+
+    }
+
+    protected void acceptAlert() {
         wd.switchTo().alert().accept();
     }
 
@@ -33,21 +45,21 @@ public class HelperBase {
         try {
             wd.findElement(locator);
             return true;
-        } catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return false;
         }
     }
 
-    protected WebElement waitForElementPresent(By locator, String error_massage, int timeoutInSeconds){
+    protected WebElement waitForElementPresent(By locator, String error_massage, int timeoutInSeconds) {
         WebDriverWait wait = new WebDriverWait(wd, timeoutInSeconds);
         wait.withMessage(error_massage + "\n");
         return wait.until(ExpectedConditions.presenceOfElementLocated(locator));
     }
 
-    protected void waiter(int millis){
-        try{
+    protected void waiter(int millis) {
+        try {
             Thread.sleep(millis);
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
