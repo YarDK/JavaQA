@@ -24,43 +24,50 @@ public class GroupCreationTests extends TestBase {
     @DataProvider
     public Iterator<Object[]> validGroup_csv() throws IOException {
         List<Object[]> list = new ArrayList<>();
-        BufferedReader br = new BufferedReader(new FileReader("src/test/resources/groups.csv"));
-        String line = br.readLine();
-        while(line != null){
-            String[] split = line.split(";");
-            list.add(new Object[]{new GroupData().withName(split[0]).withHeader(split[1]).withFooter(split[2])});
-            line = br.readLine();
+        try(BufferedReader br = new BufferedReader(new FileReader("src/test/resources/groups.csv")))
+        {
+            String line = br.readLine();
+            while (line != null) {
+                String[] split = line.split(";");
+                list.add(new Object[]{new GroupData().withName(split[0]).withHeader(split[1]).withFooter(split[2])});
+                line = br.readLine();
+            }
+            return list.iterator();
         }
-        return list.iterator();
     }
 
     @DataProvider
     public Iterator<Object[]> validGroup_xml() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("src/test/resources/groups.xml"));
-        String xml = "";
-        String line = br.readLine();
-        while(line != null){
-            xml += line;
-            line = br.readLine();
+        try(BufferedReader br = new BufferedReader(new FileReader("src/test/resources/groups.xml")))
+        {
+            String xml = "";
+            String line = br.readLine();
+            while (line != null) {
+                xml += line;
+                line = br.readLine();
+            }
+            XStream xstream = new XStream();
+            xstream.processAnnotations(GroupData.class);
+            List<GroupData> groups = (List<GroupData>) xstream.fromXML(xml);
+            return groups.stream().map(g -> new Object[]{g}).collect(Collectors.toList()).iterator();
         }
-        XStream xstream = new XStream();
-        xstream.processAnnotations(GroupData.class);
-        List<GroupData> groups = (List<GroupData>) xstream.fromXML(xml);
-        return groups.stream().map(g -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
 
     @DataProvider
     public Iterator<Object[]> validGroup_json() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("src/test/resources/groups.json"));
-        String json = "";
-        String line = br.readLine();
-        while(line != null){
-            json += line;
-            line = br.readLine();
+        try(BufferedReader br = new BufferedReader(new FileReader("src/test/resources/groups.json")))
+        {
+            String json = "";
+            String line = br.readLine();
+            while (line != null) {
+                json += line;
+                line = br.readLine();
+            }
+            Gson gson = new Gson();
+            List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>() {
+            }.getType()); // List<GroupData>.class
+            return groups.stream().map(g -> new Object[]{g}).collect(Collectors.toList()).iterator();
         }
-        Gson gson = new Gson();
-        List<GroupData> groups = gson.fromJson(json, new TypeToken<List<GroupData>>(){}.getType()); // List<GroupData>.class
-        return groups.stream().map(g -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
 
     @Test(dataProvider = "validGroup_json")

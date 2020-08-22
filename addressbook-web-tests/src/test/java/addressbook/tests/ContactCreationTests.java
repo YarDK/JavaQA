@@ -22,16 +22,19 @@ public class ContactCreationTests extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validContact_json() throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader("src/test/resources/contacts.json"));
-        String json = "";
-        String line = br.readLine();
-        while(line != null){
-            json += line;
-            line = br.readLine();
+        try(BufferedReader br = new BufferedReader(new FileReader("src/test/resources/contacts.json")))
+        {
+            String json = "";
+            String line = br.readLine();
+            while (line != null) {
+                json += line;
+                line = br.readLine();
+            }
+            Gson gson = new Gson();
+            List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>() {
+            }.getType()); // List<ContactData>.class
+            return contacts.stream().map(g -> new Object[]{g}).collect(Collectors.toList()).iterator();
         }
-        Gson gson = new Gson();
-        List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>(){}.getType()); // List<ContactData>.class
-        return contacts.stream().map(g -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
 
     @Test(dataProvider = "validContact_json")

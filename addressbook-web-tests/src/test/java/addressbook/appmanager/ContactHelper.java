@@ -46,12 +46,12 @@ public class ContactHelper extends HelperBase {
 
     public void returnHomePage(){
         click(By.linkText("home page"));
-        waiter(500);
+        waiter(200);
     }
 
     public void returnHome(){
         click(By.linkText("home"));
-        waiter(500);
+        waiter(200);
     }
 
 
