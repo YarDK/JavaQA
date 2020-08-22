@@ -20,7 +20,7 @@ public class ContactModificationTest extends TestBase {
                     .withMiddle_name("New_contact_middle_name")
                     .withNick_name("New_contact_nick_name")
                     .withTelephone_home("192873129783")
-                    .withGroup("[none]"));
+            );
         }
     }
 

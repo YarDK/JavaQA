@@ -17,7 +17,7 @@ public class ContactAddressTests extends TestBase{
                     .withMiddle_name("New_contact_middle_name")
                     .withNick_name("New_contact_nick_name")
                     .withAddress("ул. Пушкина\nдом.8\nкв.871")
-                    .withGroup("[none]"));
+            );
         }
     }
 

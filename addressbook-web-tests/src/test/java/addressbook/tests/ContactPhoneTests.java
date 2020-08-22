@@ -23,7 +23,7 @@ public class ContactPhoneTests extends TestBase{
                     .withTelephone_home("192873129783")
                     .withTelephone_work("19287311121")
                     .withTelephone_mobile("1112231121")
-                    .withGroup("[none]"));
+            );
         }
     }
 

@@ -21,7 +21,7 @@ public class ContactDeleteTest extends TestBase {
                     .withMiddle_name("Delete_contact_middle_name")
                     .withNick_name("Delete_contact_nick_name")
                     .withTelephone_home("192873129783")
-                    .withGroup("[none]"));
+            );
         }
     }
 

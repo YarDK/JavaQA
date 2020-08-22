@@ -23,7 +23,7 @@ public class ContactEmailTests extends TestBase{
                     .withEmail_1("email1@mail.ru")
                     .withEmail_2("email2@mail.ru")
                     .withEmail_3("email3@mail.ru")
-                    .withGroup("[none]"));
+            );
         }
     }
 
