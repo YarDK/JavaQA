@@ -31,14 +31,23 @@ public class ContactModificationTest extends TestBase {
         ContactData modified_contact = before.iterator().next();
 
         ContactData contact = new ContactData()
-                .withFirst_name("Modify_contact_first_name")
-                .withLast_name("Modify_contact_last_name")
-                .withId(modified_contact.getId());
+                .withId(modified_contact.getId())
+                .withFirst_name("Modify_first_name")
+                .withLast_name("Modify_Last_name" )
+                .withMiddle_name(modified_contact.getMiddle_name())
+                .withNick_name(modified_contact.getNick_name())
+                .withAddress(modified_contact.getAddress())
+                .withTelephone_home(modified_contact.getTelephone_home())
+                .withTelephone_mobile(modified_contact.getTelephone_mobile())
+                .withTelephone_work(modified_contact.getTelephone_work())
+                .withEmail_1(modified_contact.getEmail_1())
+                .withEmail_2(modified_contact.getEmail_2())
+                .withEmail_3(modified_contact.getEmail_3());
 
         app.contact().modify(contact);
         assertThat(app.contact().count(), equalTo(before.size()));
         Contacts after = app.db().contacts();
         assertThat(after, equalTo(before.withModify(modified_contact, contact)));
-
+        verifyContactListInUI();
     }
 }

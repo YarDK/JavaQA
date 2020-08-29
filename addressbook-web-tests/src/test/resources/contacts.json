@@ -1,7 +1,15 @@
 [
   {
-    "first_name": "Contact_name_test_1",
-    "last_name": "Contact_last_name_1",
-    "telephone_home": "88002353531"
+    "first_name": "First_name_1",
+    "last_name": "Last_name_1",
+    "middle_name": "Middle_name_1",
+    "nick_name": "Nick_name_1",
+    "address": "Address_1",
+    "telephone_home": "1111111101",
+    "telephone_mobile": "222222201",
+    "telephone_work": "333333301",
+    "email_1": "email_1_1@mail.com",
+    "email_2": "email_2_1@mail.com",
+    "email_3": "email_3_1@mail.com"
   }
 ]

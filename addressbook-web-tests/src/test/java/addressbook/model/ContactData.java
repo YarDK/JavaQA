@@ -12,52 +12,60 @@ public class ContactData {
 
     @Expose
     @Column(name = "firstname")
-    private String first_name = "";
+    private String first_name;
 
     @Expose
     @Column(name = "lastname")
-    private String last_name = "";
+    private String last_name;
 
+    @Expose
     @Column(name = "middlename")
-    private String middle_name = "";
+    private String middle_name;
 
+    @Expose
     @Column(name = "nickname")
-    private String nick_name = "";
+    private String nick_name;
 
+    @Expose
     @Column(name = "address")
     @Type(type = "text")
-    private String address = "";
+    private String address;
 
     @Expose
     @Column(name = "home")
     @Type(type = "text")
-    private String telephone_home = "";
+    private String telephone_home;
 
+    @Expose
     @Column(name = "mobile")
     @Type(type = "text")
-    private String telephone_mobile = "";
+    private String telephone_mobile;
 
+    @Expose
     @Column(name = "work")
     @Type(type = "text")
-    private String telephone_work = "";
+    private String telephone_work;
 
     @Transient
-    private String telephone_all = "";
+    private String telephone_all;
 
+    @Expose
     @Column(name = "email")
     @Type(type = "text")
-    private String email_1 = "";
+    private String email_1;
 
+    @Expose
     @Column(name = "email2")
     @Type(type = "text")
-    private String email_2 = "";
+    private String email_2;
 
+    @Expose
     @Column(name = "email3")
     @Type(type = "text")
-    private String email_3 = "";
+    private String email_3;
 
     @Transient
-    private String email_all = "";
+    private String email_all;
 
     @Transient
     private String group = "[none]";
@@ -145,64 +153,6 @@ public class ContactData {
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "ContactData{" +
-                "first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", middle_name='" + middle_name + '\'' +
-                ", nick_name='" + nick_name + '\'' +
-                ", address='" + address + '\'' +
-                ", telephone_home='" + telephone_home + '\'' +
-                ", telephone_mobile='" + telephone_mobile + '\'' +
-                ", telephone_work='" + telephone_work + '\'' +
-                ", email_1='" + email_1 + '\'' +
-                ", email_2='" + email_2 + '\'' +
-                ", email_3='" + email_3 + '\'' +
-                ", id=" + id +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ContactData that = (ContactData) o;
-
-        if (id != that.id) return false;
-        if (first_name != null ? !first_name.equals(that.first_name) : that.first_name != null) return false;
-        if (last_name != null ? !last_name.equals(that.last_name) : that.last_name != null) return false;
-        if (middle_name != null ? !middle_name.equals(that.middle_name) : that.middle_name != null) return false;
-        if (nick_name != null ? !nick_name.equals(that.nick_name) : that.nick_name != null) return false;
-        if (address != null ? !address.equals(that.address) : that.address != null) return false;
-        if (telephone_home != null ? !telephone_home.equals(that.telephone_home) : that.telephone_home != null)
-            return false;
-        if (telephone_mobile != null ? !telephone_mobile.equals(that.telephone_mobile) : that.telephone_mobile != null)
-            return false;
-        if (telephone_work != null ? !telephone_work.equals(that.telephone_work) : that.telephone_work != null)
-            return false;
-        if (email_1 != null ? !email_1.equals(that.email_1) : that.email_1 != null) return false;
-        if (email_2 != null ? !email_2.equals(that.email_2) : that.email_2 != null) return false;
-        return email_3 != null ? email_3.equals(that.email_3) : that.email_3 == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = first_name != null ? first_name.hashCode() : 0;
-        result = 31 * result + (last_name != null ? last_name.hashCode() : 0);
-        result = 31 * result + (middle_name != null ? middle_name.hashCode() : 0);
-        result = 31 * result + (nick_name != null ? nick_name.hashCode() : 0);
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + (telephone_home != null ? telephone_home.hashCode() : 0);
-        result = 31 * result + (telephone_mobile != null ? telephone_mobile.hashCode() : 0);
-        result = 31 * result + (telephone_work != null ? telephone_work.hashCode() : 0);
-        result = 31 * result + (email_1 != null ? email_1.hashCode() : 0);
-        result = 31 * result + (email_2 != null ? email_2.hashCode() : 0);
-        result = 31 * result + (email_3 != null ? email_3.hashCode() : 0);
-        result = 31 * result + id;
-        return result;
-    }
 
     public ContactData withLast_name(String last_name) {
         this.last_name = last_name;
@@ -277,6 +227,65 @@ public class ContactData {
     public ContactData withPhoto(File photo) {
         this.photo = photo.getPath();
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "ContactData{" +
+                "first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", middle_name='" + middle_name + '\'' +
+                ", nick_name='" + nick_name + '\'' +
+                ", address='" + address + '\'' +
+                ", telephone_home='" + telephone_home + '\'' +
+                ", telephone_mobile='" + telephone_mobile + '\'' +
+                ", telephone_work='" + telephone_work + '\'' +
+                ", email_1='" + email_1 + '\'' +
+                ", email_2='" + email_2 + '\'' +
+                ", email_3='" + email_3 + '\'' +
+                ", id=" + id +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ContactData that = (ContactData) o;
+
+        if (id != that.id) return false;
+        if (first_name != null ? !first_name.equals(that.first_name) : that.first_name != null) return false;
+        if (last_name != null ? !last_name.equals(that.last_name) : that.last_name != null) return false;
+        if (middle_name != null ? !middle_name.equals(that.middle_name) : that.middle_name != null) return false;
+        if (nick_name != null ? !nick_name.equals(that.nick_name) : that.nick_name != null) return false;
+        if (address != null ? !address.equals(that.address) : that.address != null) return false;
+        if (telephone_home != null ? !telephone_home.equals(that.telephone_home) : that.telephone_home != null)
+            return false;
+        if (telephone_mobile != null ? !telephone_mobile.equals(that.telephone_mobile) : that.telephone_mobile != null)
+            return false;
+        if (telephone_work != null ? !telephone_work.equals(that.telephone_work) : that.telephone_work != null)
+            return false;
+        if (email_1 != null ? !email_1.equals(that.email_1) : that.email_1 != null) return false;
+        if (email_2 != null ? !email_2.equals(that.email_2) : that.email_2 != null) return false;
+        return email_3 != null ? email_3.equals(that.email_3) : that.email_3 == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = first_name != null ? first_name.hashCode() : 0;
+        result = 31 * result + (last_name != null ? last_name.hashCode() : 0);
+        result = 31 * result + (middle_name != null ? middle_name.hashCode() : 0);
+        result = 31 * result + (nick_name != null ? nick_name.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (telephone_home != null ? telephone_home.hashCode() : 0);
+        result = 31 * result + (telephone_mobile != null ? telephone_mobile.hashCode() : 0);
+        result = 31 * result + (telephone_work != null ? telephone_work.hashCode() : 0);
+        result = 31 * result + (email_1 != null ? email_1.hashCode() : 0);
+        result = 31 * result + (email_2 != null ? email_2.hashCode() : 0);
+        result = 31 * result + (email_3 != null ? email_3.hashCode() : 0);
+        result = 31 * result + id;
+        return result;
     }
 
 }
