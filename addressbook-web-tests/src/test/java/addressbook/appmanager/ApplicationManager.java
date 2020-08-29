@@ -22,6 +22,7 @@ public class ApplicationManager {
     private GroupHelper groupHelper;
     private SessionHelper sessionHelper;
     private ContactHelper contactHelper;
+    private DbHelper dbhelper;
 
     public ApplicationManager(String browser){
         this.browser = browser;
@@ -33,6 +34,8 @@ public class ApplicationManager {
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
 
         //BrowserType не поддерживает chrome и firefox по умолчанию в имеющейся бибилиотеке
+
+        dbhelper = new DbHelper(); // Инициализация помощника БД
 
         if(browser.toLowerCase().equals("chrome")){
             System.setProperty("webdriver.chrome.driver","/Applications/Google Chrome.app/Contents/MacOS/chromedriver");
@@ -53,7 +56,6 @@ public class ApplicationManager {
         sessionHelper = new SessionHelper(wd);
         contactHelper = new ContactHelper(wd);
         sessionHelper.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPassword"));
-
     }
 
     private void logout() {
@@ -80,5 +82,9 @@ public class ApplicationManager {
 
     public ContactHelper contact() {
         return contactHelper;
+    }
+
+    public DbHelper db() {
+        return dbhelper;
     }
 }
