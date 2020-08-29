@@ -1,29 +1,74 @@
 package addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
+
     @Expose
+    @Column(name = "firstname")
     private String first_name;
+
     @Expose
+    @Column(name = "lastname")
     private String last_name;
+
+    @Column(name = "middlename")
     private String middle_name;
+
+    @Column(name = "nickname")
     private String nick_name;
+
+    @Column(name = "address")
+    @Type(type = "text")
     private String address;
+
     @Expose
+    @Column(name = "home")
+    @Type(type = "text")
     private String telephone_home;
+
+    @Column(name = "mobile")
+    @Type(type = "text")
     private String telephone_mobile;
+
+    @Column(name = "work")
+    @Type(type = "text")
     private String telephone_work;
+
+    @Transient
     private String telephone_all;
+
+    @Column(name = "email")
+    @Type(type = "text")
     private String email_1;
+
+    @Column(name = "email2")
+    @Type(type = "text")
     private String email_2;
+
+    @Column(name = "email3")
+    @Type(type = "text")
     private String email_3;
+
+    @Transient
     private String email_all;
+
+    @Transient
     private String group = "[none]";
+
+    @Id
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
-    private File photo;
+
+    @Column(name = "photo")
+    @Type(type = "text")
+    private String photo;
 
 
     public String getFirst_name() {
@@ -87,7 +132,7 @@ public class ContactData {
     }
 
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
 
     public ContactData withFirst_name(String first_name) {
@@ -166,7 +211,7 @@ public class ContactData {
     }
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
