@@ -5,6 +5,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "addressbook")
@@ -67,8 +69,10 @@ public class ContactData {
     @Transient
     private String email_all;
 
-    @Transient
-    private String group = "[none]";
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "address_in_groups",
+            joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
 
     @Id
     @Column(name = "id")
@@ -131,8 +135,8 @@ public class ContactData {
         return email_all;
     }
 
-    public String getGroup() {
-        return group;
+    public Groups getGroups() {
+        return new Groups(groups);
     }
 
     public int getId() {
@@ -214,11 +218,6 @@ public class ContactData {
     }
 
 
-    public ContactData withGroup(String group) {
-        this.group = group;
-        return this;
-    }
-
     public ContactData withId(int id) {
         this.id = id;
         return this;
@@ -229,20 +228,21 @@ public class ContactData {
         return this;
     }
 
+    public ContactData inGroup(GroupData group) {
+        groups.add(group);
+        return this;
+    }
+
+    public ContactData outGroup(GroupData group) {
+        groups.remove(group);
+        return this;
+    }
+
     @Override
     public String toString() {
         return "ContactData{" +
                 "first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", middle_name='" + middle_name + '\'' +
-                ", nick_name='" + nick_name + '\'' +
-                ", address='" + address + '\'' +
-                ", telephone_home='" + telephone_home + '\'' +
-                ", telephone_mobile='" + telephone_mobile + '\'' +
-                ", telephone_work='" + telephone_work + '\'' +
-                ", email_1='" + email_1 + '\'' +
-                ", email_2='" + email_2 + '\'' +
-                ", email_3='" + email_3 + '\'' +
+                ", groups=" + groups +
                 ", id=" + id +
                 '}';
     }
@@ -287,5 +287,6 @@ public class ContactData {
         result = 31 * result + id;
         return result;
     }
+
 
 }

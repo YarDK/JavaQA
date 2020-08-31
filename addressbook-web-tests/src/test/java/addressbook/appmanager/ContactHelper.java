@@ -2,6 +2,7 @@ package addressbook.appmanager;
 
 import addressbook.model.ContactData;
 import addressbook.model.Contacts;
+import addressbook.model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -37,7 +38,10 @@ public class ContactHelper extends HelperBase {
         attach(By.name("photo"), contactData.getPhoto());
 
         if (creation){
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            if(contactData.getGroups().size() > 0) {
+                Assert.assertTrue(contactData.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+            }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
@@ -61,6 +65,22 @@ public class ContactHelper extends HelperBase {
 
     public void selectContactById(int id) {
         click(By.cssSelector("input[id='" + id + "']"));
+    }
+
+    public void selectGroupForAdd(String group_name){
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group_name);
+    }
+
+    public void clickByAddto(){
+        click(By.cssSelector("input[type = 'submit']"));
+    }
+
+    public void showContactInGroup(String group_name){
+        new Select(wd.findElement(By.cssSelector("select[name='group']"))).selectByVisibleText(group_name);
+    }
+
+    public void clickByRemoveFromGroup() {
+        click(By.cssSelector("input[type='submit']"));
     }
 
     public void acceptAlertByDelete(){
@@ -112,6 +132,13 @@ public class ContactHelper extends HelperBase {
         submitContactUpdater();
         contactCache = null;
         returnHomePage();
+    }
+
+    public void addGroup(ContactData contact, GroupData group) {
+        returnHome();
+        selectContactById(contact.getId());
+        selectGroupForAdd(group.getName());
+        clickByAddto();
     }
 
     public void refrashPage(){
@@ -180,4 +207,6 @@ public class ContactHelper extends HelperBase {
                 .withEmail_2(email_2)
                 .withEmail_3(email_3);
     }
+
+
 }

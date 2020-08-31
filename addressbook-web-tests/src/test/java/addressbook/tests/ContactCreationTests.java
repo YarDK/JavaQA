@@ -2,6 +2,7 @@ package addressbook.tests;
 
 import addressbook.model.ContactData;
 import addressbook.model.Contacts;
+import addressbook.model.Groups;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.testng.annotations.DataProvider;
@@ -39,8 +40,9 @@ public class ContactCreationTests extends TestBase {
 
     @Test(dataProvider = "validContact_json")
     public void testContactCreation(ContactData contact){
+        Groups groups = app.db().groups();
         Contacts before = app.db().contacts();
-        app.contact().create(contact);
+        app.contact().create(contact.inGroup(groups.iterator().next()));
         assertThat(app.contact().count(), equalTo(before.size() + 1));
         Contacts after = app.db().contacts();
         assertThat(after, equalTo(before
