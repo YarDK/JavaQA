@@ -119,6 +119,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void deleted(ContactData contact) {
+        returnHome();
         selectContactById(contact.getId());
         deleteContactButton();
         acceptAlertByDelete();
