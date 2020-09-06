@@ -18,7 +18,7 @@ public class TestBase {
     public void setUp() throws IOException {
         app.init();
         app.ftp().upload(new File(
-                "/Users/yaroslavkorotyshov/Desktop/JavaQA/mantis-tests/src/test/resources/config_inc.php"),
+                "src/test/resources/config_inc.php"),
                 "config_inc.php",
                 "config_inc.php.bak");
     }

@@ -9,7 +9,7 @@ $g_db_password            = '';
 
 # --- Security ---
 $g_default_timezone       = 'Europe/Berlin';
-$g_crypto_master_salt     = 'n5QSqrJAvuG9OZ7bcnNGCKrdpruLM2Vmmn5Zm53uHBY=';
+$g_crypto_master_salt     = 'qwsr2lO23BoP6ncVdqzCODr7LP6ic77zPZaKG3lwwuk=';
 
 # --- Anonymous Access / Signup ---
 $g_allow_signup				= ON;
