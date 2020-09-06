@@ -19,7 +19,7 @@ public class RegistrationTests extends TestBase {
 
     @AfterMethod(alwaysRun = true)
     public void stopMailServer(){
-        app.mail().start();
+        app.mail().stop();
     }
 
     @Test
