@@ -2,9 +2,11 @@ package addressbook.tests;
 
 import addressbook.model.ContactData;
 import addressbook.model.Contacts;
+import addressbook.model.GroupData;
 import addressbook.model.Groups;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -20,6 +22,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class ContactCreationTests extends TestBase {
+
+    @BeforeMethod
+    public void ensurePreconditions(){
+        app.goTo().groupPage();
+        if(app.db().groups().size() == 0){
+            app.group().create(new GroupData().withName("New_group_creation_test"));
+        }
+    }
 
     @DataProvider
     public Iterator<Object[]> validContact_json() throws IOException {

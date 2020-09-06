@@ -38,10 +38,10 @@ public class ApplicationManager {
         dbhelper = new DbHelper(); // Инициализация помощника БД
 
         if(browser.toLowerCase().equals("chrome")){
-            System.setProperty("webdriver.chrome.driver","/Applications/Google Chrome.app/Contents/MacOS/chromedriver");
+            System.setProperty("webdriver.chrome.driver","src\\test\\resources\\browserdrivers\\chromedriver.exe");
             wd = new ChromeDriver();
         } else if(browser.toLowerCase().equals("firefox")) {
-            System.setProperty("webdriver.gecko.driver","/Applications/Firefox.app/Contents/MacOS/geckodriver");
+            System.setProperty("webdriver.gecko.driver","src\\test\\resources\\browserdrivers\\geckodriver.exe");
             wd = new FirefoxDriver();
         } else {
             System.out.println("unknown browser");
