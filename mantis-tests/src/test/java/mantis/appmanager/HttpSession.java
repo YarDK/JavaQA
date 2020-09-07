@@ -34,7 +34,8 @@ public class HttpSession {
         post_username.setEntity(new UrlEncodedFormEntity(params));
         CloseableHttpResponse response = httpclient.execute(post_username);
         String body = geTextFrom(response);
-        return body.contains(String.format("<a href=\"/mantisbt-2.24.2/account_page.php\">%s</a>", username));
+        //System.out.println("\nSITE\n" + body + "\n\n" + username);
+        return body.contains(username);
     }
 
 
@@ -50,7 +51,8 @@ public class HttpSession {
         HttpGet get = new HttpGet(app.getProperty("web.baseUrl") + "/login.php");
         CloseableHttpResponse response = httpclient.execute(get);
         String body = geTextFrom(response);
-        return body.contains(String.format("<a href=\"/mantisbt-2.24.2/account_page.php\">%s</a>", username));
+        System.out.println("\nSITE\n" + body + "\n\n" + username);
+        return body.contains(username);
     }
 
 

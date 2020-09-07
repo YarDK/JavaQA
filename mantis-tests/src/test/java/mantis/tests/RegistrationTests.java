@@ -12,12 +12,12 @@ import static org.testng.Assert.assertTrue;
 
 public class RegistrationTests extends TestBase {
 
-    @BeforeMethod
+    //@BeforeMethod
     public void startMailServer(){
         app.mail().start();
     }
 
-    @AfterMethod(alwaysRun = true)
+    //@AfterMethod(alwaysRun = true)
     public void stopMailServer(){
         app.mail().stop();
     }
@@ -25,10 +25,12 @@ public class RegistrationTests extends TestBase {
     @Test
     public void testRegistrationTests() throws Exception {
         String email = String.format("user%s@localhost.localdomain", System.currentTimeMillis());
-        String user_mail = "user_mail" + System.currentTimeMillis();
+        String user_mail = "user" + System.currentTimeMillis();
         String password = "password";
+        app.james().createUser(user_mail, password);
         app.registration().start(user_mail, email);
-        List<MailMessage> mailMessages = app.mail().waitFoMail(2, 10000);
+        //List<MailMessage> mailMessages = app.mail().waitFoMail(2, 10000);
+        List<MailMessage> mailMessages = app.james().waitForMail(user_mail, password, 60000);
         String confirmationLink = findConfirmationLink(mailMessages, email);
         app.registration().finish(confirmationLink, "password");
         assertTrue(app.newSession().login(user_mail, password));

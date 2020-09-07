@@ -1,6 +1,5 @@
 package mantis.appmanager;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -19,6 +18,9 @@ public class ApplicationManager {
     private RegistrationHelper registrationHelper;
     private FtpHelper ftp;
     private MailHelper mailHelper;
+    private JamesHelper jamesHelper;
+    private ResetPasswordHelper rspassword;
+    private UISession uiSession;
 
 
     public ApplicationManager(String browser) {
@@ -68,6 +70,27 @@ public class ApplicationManager {
         return mailHelper;
     }
 
+    public JamesHelper james(){
+        if(jamesHelper == null){
+            jamesHelper = new JamesHelper(this);
+        }
+        return jamesHelper;
+    }
+
+    public ResetPasswordHelper resetPassword(){
+        if(rspassword == null){
+            rspassword = new ResetPasswordHelper(this);
+        }
+        return rspassword;
+    }
+
+    public UISession newSessionUI(){
+        if(uiSession == null){
+            uiSession = new UISession(this);
+        }
+        return uiSession;
+    }
+
     public WebDriver getDriver() {
         if(wd == null){
             if (browser.toLowerCase().equals("chrome")) {
@@ -82,9 +105,7 @@ public class ApplicationManager {
             wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
             wd.get(properties.getProperty("web.baseUrl"));
 
-            //BrowserType не поддерживает chrome и firefox по умолчанию в имеющейся бибилиотеке
-            // Исполняемый драйвер расположил в пакете приложения по соответствующему пути
-
+            // BrowserType не поддерживает chrome и firefox по умолчанию в имеющейся бибилиотеке
         }
         return wd;
     }

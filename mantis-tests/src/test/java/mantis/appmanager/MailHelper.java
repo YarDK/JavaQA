@@ -8,6 +8,7 @@ import javax.mail.MessagingException;
 import javax.mail.Message;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,7 +21,7 @@ public class MailHelper {
         wiser = new Wiser();
     }
 
-    public List<MailMessage> waitFoMail(int count, long timeout) throws MessagingException, IOException{
+    public List<MailMessage> waitForMail(int count, long timeout){
         long start = System.currentTimeMillis();
         while (System.currentTimeMillis() < start + timeout){
             if(wiser.getMessages().size() >= count){
@@ -45,6 +46,7 @@ public class MailHelper {
             return null;
         }
     }
+
 
     public void start(){
         wiser.start();
