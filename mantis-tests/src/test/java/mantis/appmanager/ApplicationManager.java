@@ -21,6 +21,7 @@ public class ApplicationManager {
     private JamesHelper jamesHelper;
     private ResetPasswordHelper rspassword;
     private UISession uiSession;
+    private DbHelper dbHelper;
 
 
     public ApplicationManager(String browser) {
@@ -89,6 +90,13 @@ public class ApplicationManager {
             uiSession = new UISession(this);
         }
         return uiSession;
+    }
+
+    public DbHelper db(){
+        if(dbHelper == null){
+            dbHelper = new DbHelper();
+        }
+        return dbHelper;
     }
 
     public WebDriver getDriver() {

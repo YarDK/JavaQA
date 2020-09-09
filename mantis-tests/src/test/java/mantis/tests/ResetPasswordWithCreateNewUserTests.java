@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.testng.Assert.assertTrue;
 
-public class ResetPasswordTests extends TestBase {
+public class ResetPasswordWithCreateNewUserTests extends TestBase {
 
     private final long now = System.currentTimeMillis();
     private final String email = String.format("user%s@localhost.localdomain", now);

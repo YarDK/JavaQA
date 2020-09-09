@@ -22,8 +22,10 @@ public class MailHelper {
     }
 
     public List<MailMessage> waitForMail(int count, long timeout){
+        System.out.println("Mail server run? - " + wiser.getServer().isRunning());
         long start = System.currentTimeMillis();
         while (System.currentTimeMillis() < start + timeout){
+            System.out.println("Count message: " + wiser.getMessages().size());
             if(wiser.getMessages().size() >= count){
                 return wiser.getMessages().stream().map(m -> toModelMail(m)).collect(Collectors.toList());
             }
@@ -39,7 +41,7 @@ public class MailHelper {
 
     private static MailMessage toModelMail(WiserMessage m) {
         try{
-            MimeMessage mm = m.getMimeMessage();
+            MimeMessage mm = m.getMimeMessage();;
             return new MailMessage(mm.getAllRecipients()[0].toString(), (String) mm.getContent());
         } catch (MessagingException | IOException e){
             e.printStackTrace();
@@ -50,6 +52,7 @@ public class MailHelper {
 
     public void start(){
         wiser.start();
+
     }
 
     public void stop(){

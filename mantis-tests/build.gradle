@@ -18,6 +18,8 @@ dependencies {
     implementation 'org.testng:testng:7.1.0'
     implementation 'org.seleniumhq.selenium:selenium-java:3.14.0'
     implementation 'org.hamcrest:java-hamcrest:2.0.0.0'
+    implementation 'org.hibernate:hibernate-core:5.4.21.Final'
+    implementation 'mysql:mysql-connector-java:8.0.21'
     implementation 'ch.qos.logback:logback-classic:1.2.3'
     implementation 'commons-net:commons-net:3.7'
     implementation 'org.subethamail:subethasmtp:3.1.7'
