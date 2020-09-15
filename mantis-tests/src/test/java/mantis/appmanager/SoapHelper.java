@@ -41,13 +41,27 @@ public class SoapHelper {
         issueData.setProject(new ObjectRef(BigInteger.valueOf(issue.getProject().getId()), issue.getProject().getName()));
         issueData.setCategory(categories[0]);
         BigInteger issueId = mc.mc_issue_add(app.getProperty("mantis.adminlogin"), app.getProperty("mantis.adminpassword"), issueData);
-        IssueData createdIssueData1 = mc.mc_issue_get(app.getProperty("mantis.adminlogin"), app.getProperty("mantis.adminpassword"), issueId);
+        IssueData createdIssueData = mc.mc_issue_get(app.getProperty("mantis.adminlogin"), app.getProperty("mantis.adminpassword"), issueId);
         return new Issue()
-                .withId(createdIssueData1.getId().intValue())
-                .withSummary(createdIssueData1.getSummary())
-                .withDescription(createdIssueData1.getDescription())
+                .withId(createdIssueData.getId().intValue())
+                .withSummary(createdIssueData.getSummary())
+                .withDescription(createdIssueData.getDescription())
                 .withProject(new Project()
-                        .withId(createdIssueData1.getProject().getId().intValue())
-                        .withName(createdIssueData1.getProject().getName()));
+                        .withId(createdIssueData.getProject().getId().intValue())
+                        .withName(createdIssueData.getProject().getName()));
     }
+
+    public Issue getIssue(int issue_id) throws MalformedURLException, ServiceException, RemoteException {
+        MantisConnectPortType mc = getMantisConnect();
+        IssueData createdIssueData = mc.mc_issue_get(app.getProperty("mantis.adminlogin"), app.getProperty("mantis.adminpassword"), BigInteger.valueOf(issue_id));
+        return new Issue()
+                .withId(createdIssueData.getId().intValue())
+                .withSummary(createdIssueData.getSummary())
+                .withDescription(createdIssueData.getDescription())
+                .withStatus(createdIssueData.getStatus().getName())
+                .withProject(new Project()
+                        .withId(createdIssueData.getProject().getId().intValue())
+                        .withName(createdIssueData.getProject().getName()));
+    }
+
 }
