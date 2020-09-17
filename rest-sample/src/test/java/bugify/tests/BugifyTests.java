@@ -7,11 +7,6 @@ import org.testng.annotations.Test;
 
 public class BugifyTests extends TestBase {
 
-    @Test
-    public void testCheckStatus(){
-        // 270 271 272
-
-    }
 
     @Test
     public void testCheckStatus_new(){

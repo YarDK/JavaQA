@@ -9,8 +9,9 @@ public class TestBase {
 
 
     public boolean isIssueOpen(int issueId)  {
-        Issue issue =  app.restHelper().getIssue(issueId);
-        return issue.getState_name().equals("resolved") || issue.getState_name().equals("closed");
+        Issue issue =  app.restHelper().getIssueById(issueId);
+        System.out.println(issue.getState_name());
+        return issue.getState_name().equals("Resolved") || issue.getState_name().equals("Closed");
     }
 
     public void skipIfNotFixed(int issueId) {
