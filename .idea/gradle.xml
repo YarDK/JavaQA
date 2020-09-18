@@ -56,6 +56,8 @@
             <option value="$PROJECT_DIR$/sandbox" />
           </set>
         </option>
+        <option name="resolveExternalAnnotations" value="false" />
+        <option name="useAutoImport" value="true" />
         <option name="useQualifiedModuleNames" value="true" />
       </GradleProjectSettings>
       <GradleProjectSettings>
