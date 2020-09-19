@@ -1,14 +1,18 @@
 package addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -37,16 +41,21 @@ public class ApplicationManager {
 
         dbhelper = new DbHelper(); // Инициализация помощника БД
 
-        if(browser.toLowerCase().equals("chrome")){
-            System.setProperty("webdriver.chrome.driver","src\\test\\resources\\browserdrivers\\chromedriver.exe");
-            wd = new ChromeDriver();
-        } else if(browser.toLowerCase().equals("firefox")) {
-            System.setProperty("webdriver.gecko.driver","src\\test\\resources\\browserdrivers\\geckodriver.exe");
-            wd = new FirefoxDriver();
+        if("".equals(properties.getProperty("selenium.server"))) {
+            if (browser.toLowerCase().equals("chrome")) {
+                System.setProperty("webdriver.chrome.driver", "src\\test\\resources\\browserdrivers\\chromedriver.exe");
+                wd = new ChromeDriver();
+            } else if (browser.toLowerCase().equals("firefox")) {
+                System.setProperty("webdriver.gecko.driver", "src\\test\\resources\\browserdrivers\\geckodriver.exe");
+                wd = new FirefoxDriver();
+            } else {
+                System.out.println("unknown browser");
+            }
         } else {
-            System.out.println("unknown browser");
+            DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.setBrowserName(browser);
+            wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
         }
-        // Исполняемый драйвер расположил в пакете приложения по соответствующему пути
 
 
         wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
